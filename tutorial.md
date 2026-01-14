@@ -49,9 +49,6 @@ Notification Service
       │
       │ Redis Pub/Sub
       ▼
-WebSocket Servers
-      │
-      ▼
 Connected Clients
 ```
 
