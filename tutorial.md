@@ -143,13 +143,12 @@ publisher.publish("notifications", JSON.stringify(event));
 ### WebSocket Setup
 ```js
 const wss = new WebSocketServer({ server });
+const clients = new Set();
 
 wss.on("connection", (ws) => {
-  console.log("Client connected");
+  clients.add(ws);
 
-  ws.on("close", () => {
-    console.log("Client disconnected");
-  });
+  ws.on("close", () => clients.delete(ws));
 });
 ```
 
