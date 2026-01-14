@@ -2,12 +2,14 @@
   "name": "faas-auto-release",
   "version": "1.0.0",
   "type": "module",
+  "main": "scheduler.js",
+  "scripts": {
+    "scheduler": "node scheduler.js",
+    "worker": "node worker.js"
+  },
   "dependencies": {
-    "express": "^4.19.2",
-    "jsonwebtoken": "^9.0.2",
-    "axios": "^1.6.8",
     "amqplib": "^0.10.3",
-    "kafkajs": "^2.2.4",
-    "helmet": "^7.1.0"
+    "axios": "^1.6.0",
+    "kafkajs": "^2.2.4"
   }
 }

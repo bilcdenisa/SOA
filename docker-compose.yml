@@ -42,12 +42,31 @@ services:
       - redis
     restart: unless-stopped
 
-  faas-auto-release:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: unless-stopped
+
+  faas-scheduler:
     build: ./faas
     env_file:
       - .env
+    command: node scheduler.js
     depends_on:
       - kafka
+      - rabbitmq
+    restart: unless-stopped
+
+  faas-worker:
+    build: ./faas
+    env_file:
+      - .env
+    command: node worker.js
+    depends_on:
+      - kafka
+      - rabbitmq
       - parking-service
     restart: unless-stopped
 
@@ -59,13 +78,6 @@ services:
       - "3001:80"
     depends_on:
       - api-gateway
-    restart: unless-stopped
-
-  rabbitmq:
-    image: rabbitmq:3-management
-    ports:
-      - "5672:5672"
-      - "15672:15672"
     restart: unless-stopped
 
   zookeeper:
