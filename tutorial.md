@@ -96,7 +96,7 @@ consumer.subscribe({ topic: "parking-events" });
 consumer.run({
   eachMessage: async ({ message }) => {
     const event = JSON.parse(message.value.toString());
-    broadcast(event);
+    redisPub.publish("notifications", JSON.stringify(event))
   }
 });
 ```
